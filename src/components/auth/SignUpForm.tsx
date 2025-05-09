@@ -1,151 +1,111 @@
-import { useState } from 'react';
 import {
-  Box,
-  Button,
-  Input,
-  VStack,
-  Text,
-  Link,
-  Field,
-  Card,
-} from '@chakra-ui/react';
+	Box,
+	Button,
+	Input,
+	VStack,
+	Text,
+	Link,
+	Field,
+	Card,
+} from '@chakra-ui/react'
 
-import { Toaster, toaster } from "@/components/ui/toaster"
-import { OTPVerification } from './OTPVerification';
+import { Toaster } from '@/components/ui/toaster'
+import { OTPVerification } from './OTPVerification'
+import { useSignupForm } from '@/hooks/use-signup-form'
 
 export const SignUpForm = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showOTPVerification, setShowOTPVerification] = useState(false);
+	const { form, signupMutation, onSubmit } = useSignupForm()
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+	} = form
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+	if (!signupMutation.data?.is_email_verified) {
+		return (
+			<OTPVerification
+				type="signup"
+				email={form.getValues('email')}
+				onVerificationComplete={() => {
+					// Handle verification complete
+				}}
+			/>
+		)
+	}
 
-    try {
-      // TODO: Implement API call to register user
-      const response = await fetch('/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+	return (
+		<>
+			<Toaster />
+			<Card.Root>
+				<Card.Body>
+					<Box as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
+						<VStack gap={4}>
+							<Text fontSize="2xl" fontWeight="bold">
+								Sign Up
+							</Text>
 
-      if (!response.ok) {
-        throw new Error('Registration failed');
-      }
+							<Field.Root invalid={!!errors.name}>
+								<Field.Label>Name</Field.Label>
+								<Input
+									{...register('name')}
+									type="text"
+									placeholder="Enter your name"
+								/>
+								<Field.ErrorText>{errors.name?.message}</Field.ErrorText>
+							</Field.Root>
 
-      toaster.create({
-        title: 'Success',
-        description: 'Please check your email for verification code',
-        type: 'success',
-        duration: 3000,
-      });
+							<Field.Root invalid={!!errors.email}>
+								<Field.Label>Email</Field.Label>
+								<Input
+									{...register('email')}
+									type="email"
+									placeholder="Enter your email"
+								/>
+								<Field.ErrorText>{errors.email?.message}</Field.ErrorText>
+							</Field.Root>
 
-      setShowOTPVerification(true);
-    } catch (error) {
-      toaster.create({
-        title: 'Error',
-        description: error instanceof Error ? error.message : 'Registration failed',
-        type: 'error',
-        duration: 3000,
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+							<Field.Root invalid={!!errors.password}>
+								<Field.Label>Password</Field.Label>
+								<Input
+									{...register('password')}
+									type="password"
+									placeholder="Enter your password"
+								/>
+								<Field.ErrorText>{errors.password?.message}</Field.ErrorText>
+							</Field.Root>
 
-  const handleVerificationComplete = () => {
-    // TODO: Redirect to login page or dashboard
-    console.log('Verification completed');
-  };
+							<Field.Root invalid={!!errors.confirmPassword}>
+								<Field.Label>Confirm Password</Field.Label>
+								<Input
+									{...register('confirmPassword')}
+									type="password"
+									placeholder="Confirm your password"
+								/>
+								<Field.ErrorText>
+									{errors.confirmPassword?.message}
+								</Field.ErrorText>
+							</Field.Root>
 
-  if (showOTPVerification) {
-    return (
-      <OTPVerification
-        type="signup"
-        email={formData.email}
-        onVerificationComplete={handleVerificationComplete}
-      />
-    );
-  }
+							<Button
+								type="submit"
+								colorScheme="blue"
+								width="100%"
+								loading={signupMutation.isPending}
+							>
+								Sign Up
+							</Button>
 
-  return (
-    <>
-      <Toaster/>
-      <Card.Root>
-        <Card.Body>
-          <Box as="form" onSubmit={handleSubmit} width="100%">
-            <VStack gap={4}>
-              <Text fontSize="2xl" fontWeight="bold">
-                Sign Up
-              </Text>
-
-              <Field.Root>
-                <Field.Label>Name</Field.Label>
-                <Input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  placeholder="Enter your name"
-                  minLength={3}
-                  maxLength={25}
-                />
-              </Field.Root>
-
-              <Field.Root>
-                <Field.Label>Email</Field.Label>
-                <Input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  placeholder="Enter your email"
-                />
-              </Field.Root>
-
-              <Field.Root>
-                <Field.Label>Password</Field.Label>
-                <Input
-                  type="password"
-                  value={formData.password}
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
-                  placeholder="Enter your password"
-                  minLength={3}
-                  maxLength={25}
-                />
-              </Field.Root>
-
-              <Button
-                type="submit"
-                colorScheme="blue"
-                width="100%"
-                loading={isSubmitting}
-              >
-                Sign Up
-              </Button>
-
-              <Link
-                color="blue.500"
-                href="/auth/signin"
-                _hover={{ textDecoration: 'underline' }}
-              >
-                Already have an account? Sign In
-              </Link>
-            </VStack>
-          </Box>
-        </Card.Body>
-      </Card.Root>
-    </>
-  );
-};
+							<Link
+								color="blue.500"
+								href="/auth/signin"
+								_hover={{ textDecoration: 'underline' }}
+							>
+								Already have an account? Sign In
+							</Link>
+						</VStack>
+					</Box>
+				</Card.Body>
+			</Card.Root>
+		</>
+	)
+}

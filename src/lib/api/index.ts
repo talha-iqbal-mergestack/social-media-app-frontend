@@ -7,7 +7,7 @@ export type ApiError = {
 }
 
 const axiosInstance = axios.create({
-	baseURL: getEnv(import.meta.env.VITE_BACKEND_API_URL),
+	baseURL: getEnv(process.env.NEXT_PUBLIC_BACKEND_API_URL as string),
 	headers: {
 		'Content-Type': 'application/json',
 	},

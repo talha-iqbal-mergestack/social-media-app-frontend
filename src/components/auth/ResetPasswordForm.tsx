@@ -10,10 +10,10 @@ import {
 } from '@chakra-ui/react'
 
 import { Toaster } from '@/components/ui/toaster'
-import { useSigninForm } from '@/hooks/use-signin-form'
+import { useResetPasswordForm } from '@/hooks/use-reset-password-form'
 
-export const SignInForm = () => {
-	const { form, signinMutation, onSubmit } = useSigninForm()
+export const ResetPasswordForm = () => {
+	const { form, resetPasswordMutation, onSubmit } = useResetPasswordForm()
 	const {
 		register,
 		formState: { errors },
@@ -28,7 +28,7 @@ export const SignInForm = () => {
 					<Box as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
 						<VStack gap={4}>
 							<Text fontSize="2xl" fontWeight="bold">
-								Sign In
+								Reset Password
 							</Text>
 
 							<Field.Root invalid={!!errors.email}>
@@ -41,40 +41,21 @@ export const SignInForm = () => {
 								<Field.ErrorText>{errors.email?.message}</Field.ErrorText>
 							</Field.Root>
 
-							<Field.Root invalid={!!errors.password}>
-								<Field.Label>Password</Field.Label>
-								<Input
-									{...register('password')}
-									type="password"
-									placeholder="Enter your password"
-								/>
-								<Field.ErrorText>{errors.password?.message}</Field.ErrorText>
-							</Field.Root>
-
-							<Link
-								color="blue.500"
-								href="/auth/reset-password"
-								alignSelf="flex-end"
-								_hover={{ textDecoration: 'underline' }}
-							>
-								Forgot Password?
-							</Link>
-
 							<Button
 								type="submit"
 								colorScheme="blue"
 								width="100%"
-								loading={signinMutation.isPending}
+								loading={resetPasswordMutation.isPending}
 							>
-								Sign In
+								Reset Password
 							</Button>
 
 							<Link
 								color="blue.500"
-								href="/auth/signup"
+								href="/auth/signin"
 								_hover={{ textDecoration: 'underline' }}
 							>
-								Don&apos;t have an account? Sign Up
+								Back to Sign In
 							</Link>
 						</VStack>
 					</Box>
