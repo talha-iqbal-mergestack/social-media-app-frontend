@@ -9,8 +9,7 @@ import {
 	Card,
 } from '@chakra-ui/react'
 
-import { Toaster } from '@/components/ui/toaster'
-import { useResetPasswordForm } from '@/hooks/use-reset-password-form'
+import { useResetPasswordForm } from '@/hooks'
 
 export const ResetPasswordForm = () => {
 	const { form, resetPasswordMutation, onSubmit } = useResetPasswordForm()
@@ -22,7 +21,6 @@ export const ResetPasswordForm = () => {
 
 	return (
 		<>
-			<Toaster />
 			<Card.Root>
 				<Card.Body>
 					<Box as="form" onSubmit={handleSubmit(onSubmit)} width="100%">

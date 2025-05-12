@@ -11,12 +11,15 @@ import { toaster } from '@/components/ui/toaster'
 
 export function useSigninForm() {
 	const router = useRouter()
-	const { signin } = useAuth()
+	const {
+		signin,
+		authState: { user },
+	} = useAuth()
 
 	const form = useForm<SigninFormValues>({
 		resolver: zodResolver(signinSchema),
 		defaultValues: {
-			email: '',
+			email: user?.email || '',
 			password: '',
 		},
 	})

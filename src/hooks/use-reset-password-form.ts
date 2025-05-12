@@ -20,11 +20,15 @@ export function useResetPasswordForm() {
 
 	const resetPasswordMutation = useMutation({
 		mutationFn: authApi.resetPassword,
-		onSuccess: () => {
+		onSuccess: (_, variables) => {
 			toaster.success({
-				description: 'Password reset email sent successfully',
+				description: 'Password reset code sent successfully',
 			})
-			router.push('/auth/signin')
+			router.push(
+				`/auth/verify-reset-password?email=${encodeURIComponent(
+					variables.email
+				)}`
+			)
 		},
 		onError: error => {
 			toaster.error({

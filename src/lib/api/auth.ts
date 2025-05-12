@@ -5,6 +5,8 @@ import {
 	SignupCredentials,
 	SignupResponse,
 	ResetPasswordFormValues,
+	EmailVerificationFormValues,
+	ResetPasswordVerificationFormValues,
 } from '@/types'
 
 export const authApi = {
@@ -24,5 +26,23 @@ export const authApi = {
 		apiClient<void>('/auth/send-password-reset-code', {
 			method: 'POST',
 			data,
+		}),
+
+	verifyResetPassword: (data: ResetPasswordVerificationFormValues) =>
+		apiClient<void>(`/auth/reset-password-with-code/${data.code}`, {
+			method: 'POST',
+			data: { password: data.password },
+		}),
+
+	sendEmailVerificationCode: (email: string) =>
+		apiClient<void>('/auth/send-signup-confirmation-code', {
+			method: 'POST',
+			data: { email },
+		}),
+
+	verifyEmail: (data: EmailVerificationFormValues) =>
+		apiClient<void>(`/auth/confirm-signup-with-code/${data.code}`, {
+			method: 'POST',
+			data: { email: data.email },
 		}),
 }

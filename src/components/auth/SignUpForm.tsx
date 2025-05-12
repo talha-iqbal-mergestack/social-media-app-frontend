@@ -7,35 +7,22 @@ import {
 	Link,
 	Field,
 	Card,
+	HStack,
 } from '@chakra-ui/react'
 
-import { Toaster } from '@/components/ui/toaster'
-import { OTPVerification } from './OTPVerification'
 import { useSignupForm } from '@/hooks/use-signup-form'
 
 export const SignUpForm = () => {
-	const { form, signupMutation, onSubmit } = useSignupForm()
+	const { form, signupMutation, sendVerificationMutation, onSubmit } =
+		useSignupForm()
 	const {
 		register,
 		formState: { errors },
 		handleSubmit,
 	} = form
 
-	if (!signupMutation.data?.is_email_verified) {
-		return (
-			<OTPVerification
-				type="signup"
-				email={form.getValues('email')}
-				onVerificationComplete={() => {
-					// Handle verification complete
-				}}
-			/>
-		)
-	}
-
 	return (
 		<>
-			<Toaster />
 			<Card.Root>
 				<Card.Body>
 					<Box as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
@@ -90,18 +77,22 @@ export const SignUpForm = () => {
 								type="submit"
 								colorScheme="blue"
 								width="100%"
-								loading={signupMutation.isPending}
+								loading={
+									signupMutation.isPending || sendVerificationMutation.isPending
+								}
 							>
 								Sign Up
 							</Button>
-
-							<Link
-								color="blue.500"
-								href="/auth/signin"
-								_hover={{ textDecoration: 'underline' }}
-							>
-								Already have an account? Sign In
-							</Link>
+							<HStack>
+								Already have an account?
+								<Link
+									color="blue.500"
+									href="/auth/signin"
+									_hover={{ textDecoration: 'underline' }}
+								>
+									Sign In
+								</Link>
+							</HStack>
 						</VStack>
 					</Box>
 				</Card.Body>

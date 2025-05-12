@@ -18,9 +18,22 @@ export function useSignupForm() {
 		defaultValues: {
 			email: '',
 			name: '',
-			// contactNumber: '',
 			password: '',
 			confirmPassword: '',
+		},
+	})
+
+	const sendVerificationMutation = useMutation({
+		mutationFn: authApi.sendEmailVerificationCode,
+		onSuccess: () => {
+			toaster.success({
+				description: 'Verification code sent to your email',
+			})
+		},
+		onError: error => {
+			toaster.error({
+				description: error.message || 'Failed to send verification code',
+			})
 		},
 	})
 
@@ -28,7 +41,14 @@ export function useSignupForm() {
 		mutationFn: authApi.signup,
 		onSuccess: data => {
 			signup(data)
-			router.push('/auth/signin')
+			// Send verification code after successful signup
+			sendVerificationMutation.mutate(data.email, {
+				onSuccess: () => {
+					router.push(
+						`/auth/verify-email?email=${encodeURIComponent(data.email)}`
+					)
+				},
+			})
 		},
 		onError: error => {
 			toaster.error({
@@ -38,23 +58,18 @@ export function useSignupForm() {
 	})
 
 	const onSubmit: SubmitHandler<SignupFormValues> = data => {
-		const {
-			email,
-			confirmPassword: password,
-			name,
-			// contactNumber
-		} = data
+		const { email, confirmPassword: password, name } = data
 		signupMutation.mutate({
 			email,
 			password,
 			name,
-			// contactNumber
 		})
 	}
 
 	return {
 		form,
 		signupMutation,
+		sendVerificationMutation,
 		onSubmit,
 	}
 }

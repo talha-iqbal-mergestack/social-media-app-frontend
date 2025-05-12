@@ -7,10 +7,10 @@ import {
 	Link,
 	Field,
 	Card,
+	HStack,
 } from '@chakra-ui/react'
 
-import { Toaster } from '@/components/ui/toaster'
-import { useSigninForm } from '@/hooks/use-signin-form'
+import { useSigninForm } from '@/hooks'
 
 export const SignInForm = () => {
 	const { form, signinMutation, onSubmit } = useSigninForm()
@@ -22,7 +22,6 @@ export const SignInForm = () => {
 
 	return (
 		<>
-			<Toaster />
 			<Card.Root>
 				<Card.Body>
 					<Box as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
@@ -30,7 +29,6 @@ export const SignInForm = () => {
 							<Text fontSize="2xl" fontWeight="bold">
 								Sign In
 							</Text>
-
 							<Field.Root invalid={!!errors.email}>
 								<Field.Label>Email</Field.Label>
 								<Input
@@ -40,7 +38,6 @@ export const SignInForm = () => {
 								/>
 								<Field.ErrorText>{errors.email?.message}</Field.ErrorText>
 							</Field.Root>
-
 							<Field.Root invalid={!!errors.password}>
 								<Field.Label>Password</Field.Label>
 								<Input
@@ -50,7 +47,6 @@ export const SignInForm = () => {
 								/>
 								<Field.ErrorText>{errors.password?.message}</Field.ErrorText>
 							</Field.Root>
-
 							<Link
 								color="blue.500"
 								href="/auth/reset-password"
@@ -59,7 +55,6 @@ export const SignInForm = () => {
 							>
 								Forgot Password?
 							</Link>
-
 							<Button
 								type="submit"
 								colorScheme="blue"
@@ -68,14 +63,16 @@ export const SignInForm = () => {
 							>
 								Sign In
 							</Button>
-
-							<Link
-								color="blue.500"
-								href="/auth/signup"
-								_hover={{ textDecoration: 'underline' }}
-							>
-								Don&apos;t have an account? Sign Up
-							</Link>
+							<HStack>
+								Don&apos;t have an account?
+								<Link
+									color="blue.500"
+									href="/auth/signup"
+									_hover={{ textDecoration: 'underline' }}
+								>
+									Sign Up
+								</Link>
+							</HStack>
 						</VStack>
 					</Box>
 				</Card.Body>

@@ -1,71 +1,29 @@
-import { useState } from 'react'
 import { Box, Button, Field, Input, VStack, Text, Card } from '@chakra-ui/react'
-import { Toaster, toaster } from '@/components/ui/toaster'
+import { useEmailVerificationOTP, useSignupForm } from '@/hooks'
+import { ResendOTP } from '@/components/auth/resend-otp'
 
 interface OTPVerificationProps {
-	type: 'signup' | 'reset-password'
 	email: string
-	onVerificationComplete: () => void
 }
 
-export const OTPVerification = ({
-	type,
-	email,
-	onVerificationComplete,
-}: OTPVerificationProps) => {
-	const [otp, setOtp] = useState('')
-	const [isSubmitting, setIsSubmitting] = useState(false)
+export const OTPVerification = ({ email }: OTPVerificationProps) => {
+	const { form, verifyEmailMutation, onSubmit } = useEmailVerificationOTP(email)
+	const { sendVerificationMutation } = useSignupForm()
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+	} = form
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault()
-		setIsSubmitting(true)
-
-		try {
-			// TODO: Implement API call to verify OTP
-			const response = await fetch('/api/verify-otp', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					email,
-					otp,
-					type,
-				}),
-			})
-
-			if (!response.ok) {
-				throw new Error('Invalid OTP')
-			}
-
-			toaster.create({
-				title: 'Success',
-				description:
-					type === 'signup'
-						? 'Email verified successfully!'
-						: 'Password reset OTP verified!',
-				type: 'success',
-			})
-
-			onVerificationComplete()
-		} catch (error) {
-			toaster.create({
-				title: 'Error',
-				description:
-					error instanceof Error ? error.message : 'Verification failed',
-				type: 'error',
-			})
-		} finally {
-			setIsSubmitting(false)
-		}
+	const handleResend = () => {
+		sendVerificationMutation.mutate(email)
 	}
 
 	return (
 		<>
-			<Toaster />
 			<Card.Root>
 				<Card.Body>
-					<Box as="form" onSubmit={handleSubmit} width="100%">
+					<Box as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
 						<VStack gap={4}>
 							<Text>
 								Please enter the verification code sent to{' '}
@@ -73,25 +31,29 @@ export const OTPVerification = ({
 									{email}
 								</Text>
 							</Text>
-							<Field.Root>
+							<Field.Root invalid={!!errors.code}>
 								<Field.Label>Verification Code</Field.Label>
 								<Input
 									type="text"
 									placeholder="Enter OTP"
-									value={otp}
-									onChange={e => setOtp(e.target.value)}
-									maxLength={6}
+									{...register('code')}
 								/>
+								<Field.ErrorText>{errors.code?.message}</Field.ErrorText>
 							</Field.Root>
 
 							<Button
 								type="submit"
 								colorScheme="blue"
 								width="100%"
-								loading={isSubmitting}
+								loading={verifyEmailMutation.isPending}
 							>
 								Verify
 							</Button>
+
+							<ResendOTP
+								onResend={handleResend}
+								isLoading={sendVerificationMutation.isPending}
+							/>
 						</VStack>
 					</Box>
 				</Card.Body>
