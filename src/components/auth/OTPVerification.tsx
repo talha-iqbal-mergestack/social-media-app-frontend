@@ -37,13 +37,14 @@ export const OTPVerification = ({ email }: OTPVerificationProps) => {
 									type="text"
 									placeholder="Enter OTP"
 									{...register('code')}
+									focusRingColor="primary"
 								/>
 								<Field.ErrorText>{errors.code?.message}</Field.ErrorText>
 							</Field.Root>
 
 							<Button
 								type="submit"
-								colorScheme="blue"
+								backgroundColor="primary"
 								width="100%"
 								loading={verifyEmailMutation.isPending}
 							>

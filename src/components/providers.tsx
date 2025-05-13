@@ -13,7 +13,11 @@ import { useState } from 'react'
 const config = defineConfig({
 	theme: {
 		tokens: {
-			colors: {},
+			colors: {
+				primary: {
+					value: '#2e5672',
+				},
+			},
 		},
 	},
 })

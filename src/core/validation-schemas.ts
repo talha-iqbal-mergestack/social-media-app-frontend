@@ -40,3 +40,9 @@ export const resetPasswordVerificationSchema = object({
 	message: NON_SIMILAR_PASSWORDS_ERROR,
 	path: ['confirmPassword'],
 })
+
+export const postSchema = object({
+	content: string()
+		.min(1, 'Post content is required')
+		.max(500, 'Post content must be less than 500 characters'),
+})

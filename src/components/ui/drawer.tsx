@@ -1,7 +1,7 @@
 'use client'
 
+import { AvatarComponent } from '@/components/ui/avatar'
 import {
-	Avatar,
 	CloseButton,
 	Drawer,
 	Flex,
@@ -49,10 +49,7 @@ export const NavigationDrawer = ({
 				<Drawer.Content>
 					<Drawer.Header p={4}>
 						<Flex alignItems="center" gap={4}>
-							<Avatar.Root variant="subtle">
-								<Avatar.Fallback name={user.name} />
-								<Avatar.Image src={user.avatar} />
-							</Avatar.Root>
+							<AvatarComponent name="user.name" avatar="user.avatar" />
 							<VStack align="start" gap={1}>
 								<Text fontWeight="bold">{user.name}</Text>
 								<Text fontSize="sm" color="gray.600">

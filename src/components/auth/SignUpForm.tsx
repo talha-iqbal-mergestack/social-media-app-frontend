@@ -28,9 +28,9 @@ export const SignUpForm = () => {
 				mx="auto"
 				boxShadow="xl"
 				border="none"
-				// bgColor="white/20"
-				// backdropFilter="blur(20px)"
-				// border="1px solid white/20"
+				// bgColor="white/40"
+				// backdropFilter="blur(25px)"
+				// border="1px solid white/30"
 			>
 				<Card.Body>
 					<Box as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
@@ -40,11 +40,7 @@ export const SignUpForm = () => {
 									fontSize="3xl"
 									fontWeight="800"
 									width="auto"
-									bgGradient="to-r"
-									gradientFrom="blue.200"
-									gradientTo="purple.300"
-									bgClip="text"
-									display="inline-block"
+									color="primary"
 								>
 									Social Wave
 								</Text>
@@ -59,7 +55,7 @@ export const SignUpForm = () => {
 									{...register('name')}
 									type="text"
 									placeholder="Enter your name"
-									focusRingColor="purple.200"
+									focusRingColor="primary"
 								/>
 								<Field.ErrorText>{errors.name?.message}</Field.ErrorText>
 							</Field.Root>
@@ -70,7 +66,7 @@ export const SignUpForm = () => {
 									{...register('email')}
 									type="email"
 									placeholder="Enter your email"
-									focusRingColor="purple.200"
+									focusRingColor="primary"
 								/>
 								<Field.ErrorText>{errors.email?.message}</Field.ErrorText>
 							</Field.Root>
@@ -81,7 +77,7 @@ export const SignUpForm = () => {
 									{...register('password')}
 									type="password"
 									placeholder="Enter your password"
-									focusRingColor="purple.200"
+									focusRingColor="primary"
 								/>
 								<Field.ErrorText>{errors.password?.message}</Field.ErrorText>
 							</Field.Root>
@@ -92,7 +88,7 @@ export const SignUpForm = () => {
 									{...register('confirmPassword')}
 									type="password"
 									placeholder="Confirm your password"
-									focusRingColor="purple.200"
+									focusRingColor="primary"
 								/>
 								<Field.ErrorText>
 									{errors.confirmPassword?.message}
@@ -103,13 +99,7 @@ export const SignUpForm = () => {
 								boxShadow="xl"
 								border="none"
 								type="submit"
-								bgGradient="to-r"
-								gradientFrom="blue.200"
-								gradientTo="purple.300"
-								_hover={{
-									gradientFrom: 'blue.300',
-									gradientTo: 'purple.400',
-								}}
+								bgColor="primary"
 								width="100%"
 								loading={
 									signupMutation.isPending || sendVerificationMutation.isPending
@@ -120,9 +110,9 @@ export const SignUpForm = () => {
 							<HStack>
 								Already have an account?
 								<Link
-									color="blue.300"
+									color="primary"
 									href="/auth/signin"
-									_hover={{ textDecoration: 'underline', color: 'blue.400' }}
+									_hover={{ textDecoration: 'underline' }}
 								>
 									Sign In
 								</Link>

@@ -25,19 +25,31 @@ export const SetNewPasswordForm = ({ email }: SetNewPasswordFormProps) => {
 					<VStack gap={4}>
 						<Field.Root invalid={!!errors.code}>
 							<Field.Label>OTP Code sent to {email}</Field.Label>
-							<Input type="text" {...register('code')} />
+							<Input
+								type="text"
+								{...register('code')}
+								focusRingColor="primary"
+							/>
 							<Field.ErrorText>{errors.code?.message}</Field.ErrorText>
 						</Field.Root>
 
 						<Field.Root invalid={!!errors.password}>
 							<Field.Label>New Password</Field.Label>
-							<Input type="password" {...register('password')} />
+							<Input
+								type="password"
+								{...register('password')}
+								focusRingColor="primary"
+							/>
 							<Field.ErrorText>{errors.password?.message}</Field.ErrorText>
 						</Field.Root>
 
 						<Field.Root invalid={!!errors.confirmPassword}>
 							<Field.Label>Confirm Password</Field.Label>
-							<Input type="password" {...register('confirmPassword')} />
+							<Input
+								type="password"
+								{...register('confirmPassword')}
+								focusRingColor="primary"
+							/>
 							<Field.ErrorText>
 								{errors.confirmPassword?.message}
 							</Field.ErrorText>

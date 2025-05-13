@@ -25,7 +25,7 @@ export const ResetPasswordForm = () => {
 				<Card.Body>
 					<Box as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
 						<VStack gap={4}>
-							<Text fontSize="2xl" fontWeight="bold">
+							<Text fontSize="xl" color="gray.500">
 								Reset Password
 							</Text>
 
@@ -35,13 +35,14 @@ export const ResetPasswordForm = () => {
 									{...register('email')}
 									type="email"
 									placeholder="Enter your email"
+									focusRingColor="primary"
 								/>
 								<Field.ErrorText>{errors.email?.message}</Field.ErrorText>
 							</Field.Root>
 
 							<Button
 								type="submit"
-								colorScheme="blue"
+								bgColor="primary"
 								width="100%"
 								loading={resetPasswordMutation.isPending}
 							>
@@ -49,7 +50,7 @@ export const ResetPasswordForm = () => {
 							</Button>
 
 							<Link
-								color="blue.500"
+								color="primary"
 								href="/auth/signin"
 								_hover={{ textDecoration: 'underline' }}
 							>

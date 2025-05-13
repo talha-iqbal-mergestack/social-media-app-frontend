@@ -9,16 +9,16 @@ export default function VerifyResetPasswordPage() {
 	const email = searchParams.get('email') || ''
 
 	return (
-		<Box
-			minH="100vh"
-			display="flex"
-			alignItems="center"
-			justifyContent="center"
-			p={4}
-		>
-			<Box maxW="md" w="100%">
-				<SetNewPasswordForm email={email} />
-			</Box>
+		// <Box
+		// 	minH="100vh"
+		// 	display="flex"
+		// 	alignItems="center"
+		// 	justifyContent="center"
+		// 	p={4}
+		// >
+		<Box maxW="md" w="100%">
+			<SetNewPasswordForm email={email} />
 		</Box>
+		// </Box>
 	)
 }

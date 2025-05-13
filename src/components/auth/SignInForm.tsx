@@ -35,7 +35,7 @@ export const SignInForm = () => {
 									{...register('email')}
 									type="email"
 									placeholder="Enter your email"
-									focusRingColor="purple.200"
+									focusRingColor="primary"
 								/>
 								<Field.ErrorText>{errors.email?.message}</Field.ErrorText>
 							</Field.Root>
@@ -45,15 +45,15 @@ export const SignInForm = () => {
 									{...register('password')}
 									type="password"
 									placeholder="Enter your password"
-									focusRingColor="purple.200"
+									focusRingColor="primary"
 								/>
 								<Field.ErrorText>{errors.password?.message}</Field.ErrorText>
 							</Field.Root>
 							<Link
-								color="blue.300"
+								color="primary"
 								href="/auth/reset-password"
 								alignSelf="flex-end"
-								_hover={{ textDecoration: 'underline', color: 'blue.400' }}
+								_hover={{ textDecoration: 'underline' }}
 							>
 								Forgot Password?
 							</Link>
@@ -61,13 +61,7 @@ export const SignInForm = () => {
 								boxShadow="xl"
 								border="none"
 								type="submit"
-								bgGradient="to-r"
-								gradientFrom="blue.200"
-								gradientTo="purple.300"
-								_hover={{
-									gradientFrom: 'blue.300',
-									gradientTo: 'purple.400',
-								}}
+								bgColor="primary"
 								width="100%"
 								loading={signinMutation.isPending}
 							>
@@ -76,9 +70,9 @@ export const SignInForm = () => {
 							<HStack>
 								{`Don't have an account?`}
 								<Link
-									color="blue.300"
+									color="primary"
 									href="/auth/signup"
-									_hover={{ textDecoration: 'underline', color: 'blue.400' }}
+									_hover={{ textDecoration: 'underline' }}
 								>
 									Sign Up
 								</Link>

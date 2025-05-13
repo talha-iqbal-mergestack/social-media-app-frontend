@@ -32,7 +32,7 @@ export function useSigninForm() {
 		mutationFn: authApi.signin,
 		onSuccess: data => {
 			signin(data)
-			router.push('/home')
+			router.push('/home/feed')
 		},
 		onError: error => {
 			toaster.error({
