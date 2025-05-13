@@ -10,6 +10,9 @@ export default function SignUpPage() {
 			display="flex"
 			alignItems="center"
 			justifyContent="center"
+			bgGradient="to-br"
+			gradientFrom="blue.200"
+			gradientTo="purple.400"
 			p={4}
 		>
 			<Box maxW="md" w="100%">

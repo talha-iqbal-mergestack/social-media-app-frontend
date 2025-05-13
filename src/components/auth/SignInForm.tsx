@@ -22,12 +22,12 @@ export const SignInForm = () => {
 
 	return (
 		<>
-			<Card.Root>
+			<Card.Root maxW="md" mx="auto" boxShadow="xl" border="none">
 				<Card.Body>
 					<Box as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
 						<VStack gap={4}>
-							<Text fontSize="2xl" fontWeight="bold">
-								Sign In
+							<Text fontSize="xl" color="gray.500">
+								Log in to your account
 							</Text>
 							<Field.Root invalid={!!errors.email}>
 								<Field.Label>Email</Field.Label>
@@ -35,6 +35,7 @@ export const SignInForm = () => {
 									{...register('email')}
 									type="email"
 									placeholder="Enter your email"
+									focusRingColor="purple.200"
 								/>
 								<Field.ErrorText>{errors.email?.message}</Field.ErrorText>
 							</Field.Root>
@@ -44,20 +45,29 @@ export const SignInForm = () => {
 									{...register('password')}
 									type="password"
 									placeholder="Enter your password"
+									focusRingColor="purple.200"
 								/>
 								<Field.ErrorText>{errors.password?.message}</Field.ErrorText>
 							</Field.Root>
 							<Link
-								color="blue.500"
+								color="blue.300"
 								href="/auth/reset-password"
 								alignSelf="flex-end"
-								_hover={{ textDecoration: 'underline' }}
+								_hover={{ textDecoration: 'underline', color: 'blue.400' }}
 							>
 								Forgot Password?
 							</Link>
 							<Button
+								boxShadow="xl"
+								border="none"
 								type="submit"
-								colorScheme="blue"
+								bgGradient="to-r"
+								gradientFrom="blue.200"
+								gradientTo="purple.300"
+								_hover={{
+									gradientFrom: 'blue.300',
+									gradientTo: 'purple.400',
+								}}
 								width="100%"
 								loading={signinMutation.isPending}
 							>
@@ -66,9 +76,9 @@ export const SignInForm = () => {
 							<HStack>
 								{`Don't have an account?`}
 								<Link
-									color="blue.500"
+									color="blue.300"
 									href="/auth/signup"
-									_hover={{ textDecoration: 'underline' }}
+									_hover={{ textDecoration: 'underline', color: 'blue.400' }}
 								>
 									Sign Up
 								</Link>

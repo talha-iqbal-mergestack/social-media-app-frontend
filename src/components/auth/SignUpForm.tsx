@@ -23,13 +23,35 @@ export const SignUpForm = () => {
 
 	return (
 		<>
-			<Card.Root>
+			<Card.Root
+				maxW="md"
+				mx="auto"
+				boxShadow="xl"
+				border="none"
+				// bgColor="white/20"
+				// backdropFilter="blur(20px)"
+				// border="1px solid white/20"
+			>
 				<Card.Body>
 					<Box as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
 						<VStack gap={4}>
-							<Text fontSize="2xl" fontWeight="bold">
-								Sign Up
-							</Text>
+							<Box textAlign="center" mb={6}>
+								<Text
+									fontSize="3xl"
+									fontWeight="800"
+									width="auto"
+									bgGradient="to-r"
+									gradientFrom="blue.200"
+									gradientTo="purple.300"
+									bgClip="text"
+									display="inline-block"
+								>
+									Social Wave
+								</Text>
+								<Text fontSize="xl" color="gray.500">
+									Create your free account
+								</Text>
+							</Box>
 
 							<Field.Root invalid={!!errors.name}>
 								<Field.Label>Name</Field.Label>
@@ -37,6 +59,7 @@ export const SignUpForm = () => {
 									{...register('name')}
 									type="text"
 									placeholder="Enter your name"
+									focusRingColor="purple.200"
 								/>
 								<Field.ErrorText>{errors.name?.message}</Field.ErrorText>
 							</Field.Root>
@@ -47,6 +70,7 @@ export const SignUpForm = () => {
 									{...register('email')}
 									type="email"
 									placeholder="Enter your email"
+									focusRingColor="purple.200"
 								/>
 								<Field.ErrorText>{errors.email?.message}</Field.ErrorText>
 							</Field.Root>
@@ -57,6 +81,7 @@ export const SignUpForm = () => {
 									{...register('password')}
 									type="password"
 									placeholder="Enter your password"
+									focusRingColor="purple.200"
 								/>
 								<Field.ErrorText>{errors.password?.message}</Field.ErrorText>
 							</Field.Root>
@@ -67,6 +92,7 @@ export const SignUpForm = () => {
 									{...register('confirmPassword')}
 									type="password"
 									placeholder="Confirm your password"
+									focusRingColor="purple.200"
 								/>
 								<Field.ErrorText>
 									{errors.confirmPassword?.message}
@@ -74,8 +100,16 @@ export const SignUpForm = () => {
 							</Field.Root>
 
 							<Button
+								boxShadow="xl"
+								border="none"
 								type="submit"
-								colorScheme="blue"
+								bgGradient="to-r"
+								gradientFrom="blue.200"
+								gradientTo="purple.300"
+								_hover={{
+									gradientFrom: 'blue.300',
+									gradientTo: 'purple.400',
+								}}
 								width="100%"
 								loading={
 									signupMutation.isPending || sendVerificationMutation.isPending
@@ -86,9 +120,9 @@ export const SignUpForm = () => {
 							<HStack>
 								Already have an account?
 								<Link
-									color="blue.500"
+									color="blue.300"
 									href="/auth/signin"
-									_hover={{ textDecoration: 'underline' }}
+									_hover={{ textDecoration: 'underline', color: 'blue.400' }}
 								>
 									Sign In
 								</Link>
