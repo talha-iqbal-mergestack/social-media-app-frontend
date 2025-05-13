@@ -64,7 +64,7 @@ export const SignInForm = () => {
 								Sign In
 							</Button>
 							<HStack>
-								Don&apos;t have an account?
+								{`Don't have an account?`}
 								<Link
 									color="blue.500"
 									href="/auth/signup"

@@ -5,30 +5,34 @@ import { useRouter } from 'next/navigation'
 
 import { authApi } from '@/lib/api/auth'
 import { SigninFormValues } from '@/types'
-import { useAuth } from '@/hooks'
 import { signinSchema } from '@/core/validation-schemas'
 import { toaster } from '@/components/ui/toaster'
+import { useAuthContext } from '@/context/AuthContext'
+import { useEffect } from 'react'
 
 export function useSigninForm() {
 	const router = useRouter()
 	const {
 		signin,
 		authState: { user },
-	} = useAuth()
+		isLoading,
+	} = useAuthContext()
+
+	const defaultValues = {
+		email: user?.email || '',
+		password: '',
+	}
 
 	const form = useForm<SigninFormValues>({
 		resolver: zodResolver(signinSchema),
-		defaultValues: {
-			email: user?.email || '',
-			password: '',
-		},
+		defaultValues,
 	})
 
 	const signinMutation = useMutation({
 		mutationFn: authApi.signin,
 		onSuccess: data => {
 			signin(data)
-			router.push('/')
+			router.push('/home')
 		},
 		onError: error => {
 			toaster.error({
@@ -40,6 +44,14 @@ export function useSigninForm() {
 	const onSubmit: SubmitHandler<SigninFormValues> = data => {
 		signinMutation.mutate(data)
 	}
+
+	useEffect(() => {
+		if (!isLoading) {
+			defaultValues.email = user?.email || ''
+		}
+		form.reset(defaultValues)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isLoading])
 
 	return {
 		form,

@@ -1,6 +1,6 @@
 'use client'
 
-import { ResetPasswordForm } from '@/components/auth/ResetPasswordForm'
+import { ResetPasswordForm } from '@/components/auth'
 import { Box } from '@chakra-ui/react'
 
 export default function ResetPasswordPage() {

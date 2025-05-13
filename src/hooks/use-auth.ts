@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { jwtDecode } from 'jwt-decode'
 
 import { SigninResponse, SignupResponse } from '@/types'
@@ -13,13 +13,16 @@ export function useAuth() {
 		setSignoutAction,
 	} = useStore()
 
+	const [isAuthCheckLoading, setIsAuthCheckLoading] = useState(true)
+
 	useEffect(() => {
 		const token = localStorage.getItem('token')
 		if (token) {
-			const user = jwtDecode(token)
-			setSigninCredsAction(user)
+			const decodedToken = jwtDecode(token)
+			setSigninCredsAction(decodedToken)
 		}
-	}, [setSigninCredsAction])
+		setIsAuthCheckLoading(false)
+	}, [setSigninCredsAction, setSignoutAction])
 
 	const signup = (data: SignupResponse) => {
 		setSignupCredsAction(data)
@@ -28,15 +31,18 @@ export function useAuth() {
 	const signin = (data: SigninResponse) => {
 		localStorage.setItem('token', data.access_token)
 		setSigninCredsAction(jwtDecode(data.access_token))
+		setIsAuthCheckLoading(false)
 	}
 
 	const signout = () => {
 		localStorage.removeItem('token')
 		setSignoutAction()
+		setIsAuthCheckLoading(false)
 	}
 
 	return {
 		authState: { user, isAuthenticated },
+		isLoading: isAuthCheckLoading,
 		signup,
 		signin,
 		signout,

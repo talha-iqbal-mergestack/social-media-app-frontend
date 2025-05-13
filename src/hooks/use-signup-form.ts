@@ -5,13 +5,13 @@ import { useRouter } from 'next/navigation'
 
 import { authApi } from '@/lib/api/auth'
 import { SignupFormValues } from '@/types'
-import { useAuth } from '@/hooks'
 import { signupSchema } from '@/core/validation-schemas'
 import { toaster } from '@/components/ui/toaster'
+import { useAuthContext } from '@/context/AuthContext'
 
 export function useSignupForm() {
 	const router = useRouter()
-	const { signup } = useAuth()
+	const { signup } = useAuthContext()
 
 	const form = useForm<SignupFormValues>({
 		resolver: zodResolver(signupSchema),

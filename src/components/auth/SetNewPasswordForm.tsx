@@ -1,6 +1,6 @@
 import { Box, Button, Field, Input, VStack, Card } from '@chakra-ui/react'
 import { useResetPasswordOTP, useResetPasswordForm } from '@/hooks'
-import { ResendOTP } from '@/components/auth/resend-otp'
+import { ResendOTP } from '@/components/auth'
 
 interface SetNewPasswordFormProps {
 	email: string

@@ -1,7 +1,7 @@
 'use client'
 
 import { Box } from '@chakra-ui/react'
-import { SetNewPasswordForm } from '@/components/auth/SetNewPasswordForm'
+import { SetNewPasswordForm } from '@/components/auth'
 import { useSearchParams } from 'next/navigation'
 
 export default function VerifyResetPasswordPage() {

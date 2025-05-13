@@ -1,5 +1,6 @@
 'use client'
 
+import { AuthProvider } from '@/context/AuthContext'
 import {
 	ChakraProvider,
 	createSystem,
@@ -23,7 +24,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
 	const [queryClient] = useState(() => new QueryClient())
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ChakraProvider value={system}>{children}</ChakraProvider>;
+			<ChakraProvider value={system}>
+				<AuthProvider>{children}</AuthProvider>
+			</ChakraProvider>
 		</QueryClientProvider>
 	)
 }

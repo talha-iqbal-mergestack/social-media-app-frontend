@@ -1,6 +1,6 @@
 import { Box, Button, Field, Input, VStack, Text, Card } from '@chakra-ui/react'
 import { useEmailVerificationOTP, useSignupForm } from '@/hooks'
-import { ResendOTP } from '@/components/auth/resend-otp'
+import { ResendOTP } from '@/components/auth'
 
 interface OTPVerificationProps {
 	email: string

@@ -10,7 +10,7 @@ import {
 	HStack,
 } from '@chakra-ui/react'
 
-import { useSignupForm } from '@/hooks/use-signup-form'
+import { useSignupForm } from '@/hooks'
 
 export const SignUpForm = () => {
 	const { form, signupMutation, sendVerificationMutation, onSubmit } =
