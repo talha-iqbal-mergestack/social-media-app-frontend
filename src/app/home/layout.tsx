@@ -25,22 +25,19 @@ export default function HomeLayout({
 		}
 	}, [isLoading, isAuthenticated, router])
 
-	// Don't render anything while checking authentication
-	if (isLoading) {
-		return (
-			<Box
-				minH="100vh"
-				display="flex"
-				alignItems="center"
-				justifyContent="center"
-			>
-				{/* You could add a loading spinner here */}
-				Loading...
-			</Box>
-		)
-	}
+	// if (isLoading) {
+	// 	return (
+	// 		<Box
+	// 			minH="100vh"
+	// 			display="flex"
+	// 			alignItems="center"
+	// 			justifyContent="center"
+	// 		>
+	// 			Loading...
+	// 		</Box>
+	// 	)
+	// }
 
-	// Don't render anything if not authenticated
 	if (!isAuthenticated) {
 		return null
 	}
@@ -48,13 +45,14 @@ export default function HomeLayout({
 	return (
 		<Box minH="100vh" display="flex" flexDirection="column">
 			<Box
+				position="sticky"
+				top="0"
+				zIndex="sticky"
 				display="flex"
 				justifyContent="space-between"
 				alignItems="center"
 				p={4}
-				backgroundColor="gray.300"
-				borderBottom="1px"
-				borderColor="gray.200"
+				backgroundColor="secondary"
 			>
 				<AvatarComponent
 					name="user.name"
@@ -62,7 +60,7 @@ export default function HomeLayout({
 					onClick={onOpen}
 				/>
 				<Button
-					colorScheme="red"
+					backgroundColor="primary"
 					size="sm"
 					onClick={() => {
 						localStorage.removeItem('token')

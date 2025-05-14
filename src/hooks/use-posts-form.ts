@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
@@ -17,14 +17,13 @@ export function usePostsForm() {
 	const form = useForm<PostFormValues>({
 		resolver: zodResolver(postSchema),
 		defaultValues: {
-			content: '',
+			text: '',
 		},
 	})
 
 	const { data: posts = [] } = useQuery({
 		queryKey: ['posts'],
 		queryFn: postsApi.getPosts,
-		select: data => data.body,
 	})
 
 	const createPostMutation = useMutation({
@@ -55,21 +54,14 @@ export function usePostsForm() {
 		},
 	})
 
-	const onSubmit: SubmitHandler<PostFormValues> = data => {
+	const onSubmit = (values: PostFormValues) => {
 		if (!user) {
 			toaster.error({
 				description: 'You must be logged in to create a post',
 			})
 			return
 		}
-		createPostMutation.mutate({
-			...data,
-			author: {
-				name: user.name,
-				avatar: '',
-				email: user.email,
-			},
-		})
+		createPostMutation.mutate(values)
 	}
 
 	const onLike = (postId: string) => {

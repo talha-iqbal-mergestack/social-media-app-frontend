@@ -1,15 +1,22 @@
 export interface Post {
 	id: string
-	author: {
+	text: string
+	_poster: {
 		name: string
-		avatar: string
 		email: string
+		// avatar: string
+		id: string
 	}
-	content: string
-	timestamp: string
-	likes: number
+	createdAt: string
+	updatedAt: string
+	likes: {
+		name: string
+		email: string
+		// avatar: string
+		id: string
+	}[]
 }
 
 export interface PostFormValues {
-	content: string
+	text: string
 }

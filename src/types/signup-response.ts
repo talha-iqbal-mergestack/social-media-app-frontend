@@ -4,4 +4,5 @@ export interface SignupResponse {
 	roles: string[]
 	is_email_verified: boolean
 	id: string
+	sub: string
 }

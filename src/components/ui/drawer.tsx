@@ -31,10 +31,10 @@ export const NavigationDrawer = ({
 }: NavigationDrawerProps) => {
 	const pathname = usePathname()
 	const menuItems = [
-		{ label: 'Feed', href: '/' },
-		{ label: 'My Profile', href: '/profile' },
-		{ label: 'Following', href: '/following' },
-		{ label: 'Followers', href: '/followers' },
+		{ label: 'Feed', href: '/home/feed' },
+		// { label: 'My Profile', href: '/home/profile' },
+		{ label: 'Following', href: '/home/following' },
+		{ label: 'Followers', href: '/home/followers' },
 	]
 
 	return (
@@ -63,6 +63,7 @@ export const NavigationDrawer = ({
 							{menuItems.map(item => (
 								<Link
 									unstyled
+									border="none"
 									key={item.href}
 									href={item.href}
 									p={4}

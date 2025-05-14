@@ -42,7 +42,7 @@ export const resetPasswordVerificationSchema = object({
 })
 
 export const postSchema = object({
-	content: string()
+	text: string()
 		.min(1, 'Post content is required')
 		.max(500, 'Post content must be less than 500 characters'),
 })

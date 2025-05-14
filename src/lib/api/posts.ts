@@ -3,18 +3,18 @@ import { Post, PostFormValues } from '@/types'
 
 export const postsApi = {
 	getPosts: () =>
-		apiClient<{ body: Post[] }>('/posts', {
+		apiClient<Post[]>('/posts/feed', {
 			method: 'GET',
 		}),
 
-	createPost: (data: PostFormValues & { author: Post['author'] }) =>
+	createPost: (data: PostFormValues) =>
 		apiClient<{ body: Post }>('/posts', {
 			method: 'POST',
 			data,
 		}),
 
 	likePost: (postId: string) =>
-		apiClient<{ body: Post }>(`/posts/${postId}/like`, {
+		apiClient<void>(`/posts/${postId}/like`, {
 			method: 'POST',
 		}),
 }

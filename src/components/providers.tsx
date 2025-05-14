@@ -17,6 +17,9 @@ const config = defineConfig({
 				primary: {
 					value: '#2e5672',
 				},
+				secondary: {
+					value: '#517d98',
+				},
 			},
 		},
 	},
