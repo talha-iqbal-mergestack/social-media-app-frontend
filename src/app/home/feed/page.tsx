@@ -1,6 +1,6 @@
 'use client'
 
-import { PostsFeed } from '@/components/home/PostsFeed'
+import { PostsFeed } from '@/components/home'
 
 export default function Feed() {
 	return <PostsFeed />

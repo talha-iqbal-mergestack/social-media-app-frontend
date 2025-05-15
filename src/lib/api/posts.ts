@@ -17,4 +17,9 @@ export const postsApi = {
 		apiClient<void>(`/posts/${postId}/like`, {
 			method: 'POST',
 		}),
+
+	unlikePost: (postId: string) =>
+		apiClient<void>(`/posts/${postId}/like`, {
+			method: 'DELETE',
+		}),
 }

@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
+
 import { usersApi } from '@/lib/api/user'
 import { useAuthContext } from '@/context/AuthContext'
-import { FollowersAndFollowingData } from '@/types/user'
+import { FollowersAndFollowingData } from '@/types'
 
 export function useFollowersAndFollowingList() {
 	const {

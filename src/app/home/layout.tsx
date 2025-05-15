@@ -1,9 +1,10 @@
 'use client'
 
-import { useAuthContext } from '@/context/AuthContext'
-import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Box, Button, useDisclosure } from '@chakra-ui/react'
+
+import { useAuthContext } from '@/context/AuthContext'
 import { AvatarComponent } from '@/components/ui/avatar'
 import { NavigationDrawer } from '@/components/ui/drawer'
 
@@ -55,8 +56,8 @@ export default function HomeLayout({
 				backgroundColor="secondary"
 			>
 				<AvatarComponent
-					name="user.name"
-					avatar="user.avatar"
+					name={user!.name}
+					avatar="user!.avatar"
 					onClick={onOpen}
 				/>
 				<Button

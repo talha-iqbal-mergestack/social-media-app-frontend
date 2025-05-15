@@ -1,9 +1,9 @@
 'use client'
 
-import { Popover } from '@chakra-ui/react'
-import { VStack, HStack, Text } from '@chakra-ui/react'
+import { VStack, HStack, Text, Popover } from '@chakra-ui/react'
+
 import { AvatarComponent } from '@/components/ui/avatar'
-import { User } from '@/types/user'
+import { User } from '@/types'
 
 type LikeDetailsProps = {
 	likes: User[]

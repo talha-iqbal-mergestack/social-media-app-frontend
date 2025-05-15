@@ -1,6 +1,5 @@
 'use client'
 
-import { AuthProvider } from '@/context/AuthContext'
 import {
 	ChakraProvider,
 	createSystem,
@@ -9,6 +8,8 @@ import {
 } from '@chakra-ui/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState } from 'react'
+
+import { AuthProvider } from '@/context/AuthContext'
 
 const config = defineConfig({
 	theme: {

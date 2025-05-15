@@ -110,6 +110,7 @@ export const SignUpForm = () => {
 							<HStack>
 								Already have an account?
 								<Link
+									unstyled
 									color="primary"
 									href="/auth/signin"
 									_hover={{ textDecoration: 'underline' }}

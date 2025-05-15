@@ -11,18 +11,14 @@ import {
 	Center,
 	Link,
 } from '@chakra-ui/react'
+
 import { AvatarComponent } from '@/components/ui/avatar'
-import { useFollowSuggestions } from '@/hooks/use-follow-suggestions'
-import { useFollowOrUnfollowUser } from '@/hooks/use-follow-or-unfollow-user'
+import { useFollowOrUnfollowUser, useFollowSuggestions } from '@/hooks'
 
 export const SuggestedUsers = () => {
 	const { suggestedUsers, isLoading, error } = useFollowSuggestions()
-	const { follow, isFollowingLoading } = useFollowOrUnfollowUser()
-
-	// Filter out users that are already being followed
-	// const suggestedUsers = [...suggestedUsers]
-	// .filter(user => !following.some(f => f.id === user.id))
-	// .slice(0, 3)
+	const { follow, isFollowingLoading, followMutationPendingVariables } =
+		useFollowOrUnfollowUser()
 
 	return (
 		<Box
@@ -69,7 +65,10 @@ export const SuggestedUsers = () => {
 								colorScheme="primary"
 								flexShrink={0}
 								onClick={() => follow(user.id)}
-								loading={isFollowingLoading}
+								loading={
+									followMutationPendingVariables?.userId === user.id &&
+									isFollowingLoading
+								}
 							>
 								Follow
 							</Button>

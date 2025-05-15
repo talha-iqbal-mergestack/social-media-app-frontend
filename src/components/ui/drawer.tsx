@@ -1,6 +1,5 @@
 'use client'
 
-import { AvatarComponent } from '@/components/ui/avatar'
 import {
 	CloseButton,
 	Drawer,
@@ -11,6 +10,8 @@ import {
 	VStack,
 } from '@chakra-ui/react'
 import { usePathname } from 'next/navigation'
+
+import { AvatarComponent } from '@/components/ui/avatar'
 
 interface NavigationDrawerProps {
 	isOpen: boolean
@@ -49,7 +50,7 @@ export const NavigationDrawer = ({
 				<Drawer.Content>
 					<Drawer.Header p={4}>
 						<Flex alignItems="center" gap={4}>
-							<AvatarComponent name="user.name" avatar="user.avatar" />
+							<AvatarComponent name={user.name} avatar="user.avatar" />
 							<VStack align="start" gap={1}>
 								<Text fontWeight="bold">{user.name}</Text>
 								<Text fontSize="sm" color="gray.600">

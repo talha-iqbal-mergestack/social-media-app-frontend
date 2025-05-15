@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
+
 import { usersApi } from '@/lib/api/user'
 import { useAuthContext } from '@/context/AuthContext'
-import { User } from '@/types/user'
+import { User } from '@/types'
 
 export function useFollowSuggestions() {
 	const {

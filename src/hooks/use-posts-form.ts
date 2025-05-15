@@ -43,7 +43,7 @@ export function usePostsForm() {
 	})
 
 	const likePostMutation = useMutation({
-		mutationFn: postsApi.likePost,
+		mutationFn: ({ postId }: { postId: string }) => postsApi.likePost(postId),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: ['posts'] })
 		},
@@ -53,6 +53,22 @@ export function usePostsForm() {
 			})
 		},
 	})
+
+	const pendinglikePostMutationVariables = likePostMutation.variables
+
+	const unlikePostMutation = useMutation({
+		mutationFn: ({ postId }: { postId: string }) => postsApi.unlikePost(postId),
+		onSuccess: async () => {
+			await queryClient.invalidateQueries({ queryKey: ['posts'] })
+		},
+		onError: error => {
+			toaster.error({
+				description: error.message || 'Failed to like post',
+			})
+		},
+	})
+
+	const pendingUnlikePostMutationVariables = unlikePostMutation.variables
 
 	const onSubmit = (values: PostFormValues) => {
 		if (!user) {
@@ -71,7 +87,17 @@ export function usePostsForm() {
 			})
 			return
 		}
-		likePostMutation.mutate(postId)
+		likePostMutation.mutate({ postId })
+	}
+
+	const onUnlike = (postId: string) => {
+		if (!user) {
+			toaster.error({
+				description: 'You must be logged in to unlike a post',
+			})
+			return
+		}
+		unlikePostMutation.mutate({ postId })
 	}
 
 	return {
@@ -79,7 +105,11 @@ export function usePostsForm() {
 		posts,
 		onSubmit,
 		onLike,
+		onUnlike,
+		unlikePostMutation,
+		pendingUnlikePostMutationVariables,
 		createPostMutation,
 		likePostMutation,
+		pendinglikePostMutationVariables,
 	}
 }

@@ -17,7 +17,6 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 				display={{ base: 'none', md: 'flex' }}
 				flexDirection="column"
 				overflow="hidden"
-				// bgImage={'url("/auth-backdrop.jpg")'}
 			>
 				<Box
 					display="flex"

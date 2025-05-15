@@ -13,17 +13,18 @@ import {
 	Alert,
 	Button,
 } from '@chakra-ui/react'
+
 import { AvatarComponent } from '@/components/ui/avatar'
-import { useFollowersAndFollowingList } from '@/hooks/use-followers-and-following-list'
-import { useFollowOrUnfollowUser } from '@/hooks/use-follow-or-unfollow-user'
+import { useFollowOrUnfollowUser, useFollowersAndFollowingList } from '@/hooks'
 
 export const FollowingList = () => {
 	const { following, isLoading, error } = useFollowersAndFollowingList()
-	const { unfollow, isUnfollowingLoading } = useFollowOrUnfollowUser()
+	const { unfollow, isUnfollowingLoading, unfollowMutationPendingVariables } =
+		useFollowOrUnfollowUser()
 
 	return (
 		<Box>
-			<Box as="main" maxW="800px" mx="auto" p={4}>
+			<Box as="main" maxW="80vw" mx="auto" p={4}>
 				<Heading as="h1" fontSize="2xl" fontWeight="bold" mb={6}>
 					People You Follow
 				</Heading>
@@ -73,9 +74,12 @@ export const FollowingList = () => {
 												size="sm"
 												variant="outline"
 												colorScheme="primary"
-												flexShrink={0}
+												// flexShrink={0}
 												onClick={() => unfollow(user.id)}
-												loading={isUnfollowingLoading}
+												loading={
+													unfollowMutationPendingVariables?.userId ===
+														user.id && isUnfollowingLoading
+												}
 											>
 												Unfollow
 											</Button>

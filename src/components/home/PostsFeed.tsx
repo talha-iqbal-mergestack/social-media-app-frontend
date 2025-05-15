@@ -11,11 +11,15 @@ import {
 	Field,
 } from '@chakra-ui/react'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
 import { AvatarComponent } from '@/components/ui/avatar'
 import { usePostsForm } from '@/hooks/use-posts-form'
 import { useAuthContext } from '@/context/AuthContext'
-import { LikeDetails } from './LikeDetails'
-import { SuggestedUsers } from './SuggestedUsers'
+import { LikeDetails, SuggestedUsers } from '@/components/home'
+
+dayjs.extend(relativeTime)
 
 export const PostsFeed = () => {
 	const {
@@ -23,8 +27,12 @@ export const PostsFeed = () => {
 		posts,
 		onSubmit,
 		onLike,
+		onUnlike,
 		createPostMutation,
+		unlikePostMutation,
 		likePostMutation,
+		pendinglikePostMutationVariables,
+		pendingUnlikePostMutationVariables,
 	} = usePostsForm()
 
 	const {
@@ -82,7 +90,7 @@ export const PostsFeed = () => {
 										<Box>
 											<Text fontWeight="bold">{post._poster.name}</Text>
 											<Text fontSize="sm" color="gray.500">
-												{post.updatedAt}
+												{dayjs(post.createdAt).fromNow()}
 											</Text>
 										</Box>
 									</HStack>
@@ -92,8 +100,19 @@ export const PostsFeed = () => {
 											aria-label="Like post"
 											variant="surface"
 											size="sm"
-											onClick={() => onLike(post.id)}
-											loading={likePostMutation.isPending}
+											onClick={() =>
+												post.likes.filter(like => like.id === user!.sub)
+													.length > 0
+													? onUnlike(post.id)
+													: onLike(post.id)
+											}
+											loading={
+												(pendinglikePostMutationVariables?.postId === post.id &&
+													likePostMutation.isPending) ||
+												(pendingUnlikePostMutationVariables?.postId ===
+													post.id &&
+													unlikePostMutation.isPending)
+											}
 										>
 											{post.likes.filter(like => like.id === user!.sub).length >
 											0 ? (

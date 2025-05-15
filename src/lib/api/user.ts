@@ -1,5 +1,5 @@
 import { apiClient } from '@/lib/api'
-import { FollowersAndFollowingData, User } from '@/types/user'
+import { FollowersAndFollowingData, User } from '@/types'
 
 export const usersApi = {
 	getFollowersAndFollowing: (userId: string) =>

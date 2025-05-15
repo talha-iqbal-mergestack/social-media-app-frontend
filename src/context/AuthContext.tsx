@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, ReactNode, useContext } from 'react'
+
 import { useAuth, AuthContext as AuthContextType } from '@/hooks'
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)

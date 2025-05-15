@@ -12,14 +12,15 @@ import {
 	Center,
 	Alert,
 } from '@chakra-ui/react'
+
 import { AvatarComponent } from '@/components/ui/avatar'
-import { useFollowersAndFollowingList } from '@/hooks/use-followers-and-following-list'
+import { useFollowersAndFollowingList } from '@/hooks'
 
 export const FollowersList = () => {
 	const { followers, isLoading, error } = useFollowersAndFollowingList()
 	return (
 		<Box>
-			<Box as="main" maxW="800px" mx="auto" p={4}>
+			<Box as="main" maxW="80vw" mx="auto" p={4}>
 				<Heading as="h1" fontSize="2xl" fontWeight="bold" mb={6}>
 					People Who Follow You
 				</Heading>
