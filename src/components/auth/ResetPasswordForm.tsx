@@ -50,6 +50,7 @@ export const ResetPasswordForm = () => {
 							</Button>
 
 							<Link
+								unstyled
 								color="primary"
 								href="/signin"
 								_hover={{ textDecoration: 'underline' }}

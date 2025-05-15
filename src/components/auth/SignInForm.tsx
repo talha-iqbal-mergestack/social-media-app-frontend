@@ -50,6 +50,7 @@ export const SignInForm = () => {
 								<Field.ErrorText>{errors.password?.message}</Field.ErrorText>
 							</Field.Root>
 							<Link
+								unstyled
 								color="primary"
 								href="/reset-password"
 								alignSelf="flex-end"
