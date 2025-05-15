@@ -27,7 +27,7 @@ export function useResetPasswordOTP(email: string) {
 			toaster.success({
 				description: 'Password reset successfully!',
 			})
-			router.push('/auth/signin')
+			router.push('/signin')
 		},
 		onError: error => {
 			toaster.error({

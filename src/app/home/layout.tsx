@@ -22,7 +22,7 @@ export default function HomeLayout({
 
 	useEffect(() => {
 		if (!isLoading && !isAuthenticated) {
-			router.push('/auth/signin')
+			router.push('/signin')
 		}
 	}, [isLoading, isAuthenticated, router])
 
@@ -65,7 +65,7 @@ export default function HomeLayout({
 					size="sm"
 					onClick={() => {
 						localStorage.removeItem('token')
-						router.push('/auth/signin')
+						router.push('/signin')
 					}}
 				>
 					Sign Out

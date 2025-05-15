@@ -25,7 +25,7 @@ export function useEmailVerificationOTP(email: string) {
 			toaster.success({
 				description: 'Email verified successfully!',
 			})
-			router.push('/auth/signin')
+			router.push('/signin')
 		},
 		onError: error => {
 			toaster.error({

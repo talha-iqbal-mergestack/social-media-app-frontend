@@ -112,7 +112,7 @@ export const SignUpForm = () => {
 								<Link
 									unstyled
 									color="primary"
-									href="/auth/signin"
+									href="/signin"
 									_hover={{ textDecoration: 'underline' }}
 								>
 									Sign In

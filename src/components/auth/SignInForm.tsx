@@ -51,7 +51,7 @@ export const SignInForm = () => {
 							</Field.Root>
 							<Link
 								color="primary"
-								href="/auth/reset-password"
+								href="/reset-password"
 								alignSelf="flex-end"
 								_hover={{ textDecoration: 'underline' }}
 							>
@@ -72,7 +72,7 @@ export const SignInForm = () => {
 								<Link
 									unstyled
 									color="primary"
-									href="/auth/signup"
+									href="/signup"
 									_hover={{ textDecoration: 'underline' }}
 								>
 									Sign Up
