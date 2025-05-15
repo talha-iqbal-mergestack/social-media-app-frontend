@@ -74,7 +74,7 @@ export const FollowingList = () => {
 												size="sm"
 												variant="outline"
 												colorScheme="primary"
-												// flexShrink={0}
+												flexShrink={0}
 												onClick={() => unfollow(user.id)}
 												loading={
 													unfollowMutationPendingVariables?.userId ===

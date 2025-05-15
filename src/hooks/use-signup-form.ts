@@ -41,7 +41,6 @@ export function useSignupForm() {
 		mutationFn: authApi.signup,
 		onSuccess: data => {
 			signup(data)
-			// Send verification code after successful signup
 			sendVerificationMutation.mutate(data.email, {
 				onSuccess: () => {
 					router.push(

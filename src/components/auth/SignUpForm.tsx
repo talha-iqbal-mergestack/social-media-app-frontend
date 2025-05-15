@@ -23,15 +23,7 @@ export const SignUpForm = () => {
 
 	return (
 		<>
-			<Card.Root
-				maxW="md"
-				mx="auto"
-				boxShadow="xl"
-				border="none"
-				// bgColor="white/40"
-				// backdropFilter="blur(25px)"
-				// border="1px solid white/30"
-			>
+			<Card.Root maxW="md" mx="auto" boxShadow="xl" border="none">
 				<Card.Body>
 					<Box as="form" onSubmit={handleSubmit(onSubmit)} width="100%">
 						<VStack gap={4}>
