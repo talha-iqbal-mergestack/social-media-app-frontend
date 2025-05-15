@@ -59,6 +59,7 @@ export const PostsFeed = () => {
 										size="lg"
 										mb={4}
 										focusRingColor="primary"
+										autoComplete="off"
 									/>
 									<Field.ErrorText>{errors.text?.message}</Field.ErrorText>
 								</Field.Root>
