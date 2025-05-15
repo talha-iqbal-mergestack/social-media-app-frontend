@@ -43,9 +43,7 @@ export function useSignupForm() {
 			signup(data)
 			sendVerificationMutation.mutate(data.email, {
 				onSuccess: () => {
-					router.push(
-						`/auth/verify-email?email=${encodeURIComponent(data.email)}`
-					)
+					router.push(`/verify-email?email=${encodeURIComponent(data.email)}`)
 				},
 			})
 		},

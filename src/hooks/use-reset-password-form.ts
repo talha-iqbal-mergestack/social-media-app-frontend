@@ -25,9 +25,7 @@ export function useResetPasswordForm() {
 				description: 'Password reset code sent successfully',
 			})
 			router.push(
-				`/auth/verify-reset-password?email=${encodeURIComponent(
-					variables.email
-				)}`
+				`/verify-reset-password?email=${encodeURIComponent(variables.email)}`
 			)
 		},
 		onError: error => {

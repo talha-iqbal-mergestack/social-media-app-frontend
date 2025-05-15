@@ -52,12 +52,11 @@ export const PostsFeed = () => {
 					<Box flex={1}>
 						<Box h="auto" bg="white" p={4} borderRadius="md" shadow="sm" mb={6}>
 							<form onSubmit={handleSubmit(onSubmit)}>
-								<Field.Root invalid={!!errors.text}>
+								<Field.Root invalid={!!errors.text} mb={3}>
 									<Input
 										{...register('text')}
 										placeholder="What's on your mind?"
 										size="lg"
-										mb={4}
 										focusRingColor="primary"
 										autoComplete="off"
 									/>
