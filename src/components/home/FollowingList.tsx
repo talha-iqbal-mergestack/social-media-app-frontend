@@ -80,6 +80,7 @@ export const FollowingList = () => {
 													unfollowMutationPendingVariables?.userId ===
 														user.id && isUnfollowingLoading
 												}
+												_hover={{ bg: 'primary', color: 'white' }}
 											>
 												Unfollow
 											</Button>
