@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Box, Button, useDisclosure } from '@chakra-ui/react'
 
-import { useAuthContext } from '@/context/AuthContext'
+import { useAuth } from '@/hooks'
 import { AvatarComponent } from '@/components/ui/avatar'
 import { NavigationDrawer } from '@/components/ui/drawer'
 
@@ -16,7 +16,7 @@ export default function HomeLayout({
 	const {
 		authState: { isAuthenticated, user },
 		isLoading,
-	} = useAuthContext()
+	} = useAuth()
 	const router = useRouter()
 	const { open, onOpen, onClose, setOpen } = useDisclosure()
 
@@ -25,19 +25,6 @@ export default function HomeLayout({
 			router.push('/signin')
 		}
 	}, [isLoading, isAuthenticated, router])
-
-	// if (isLoading) {
-	// 	return (
-	// 		<Box
-	// 			minH="100vh"
-	// 			display="flex"
-	// 			alignItems="center"
-	// 			justifyContent="center"
-	// 		>
-	// 			Loading...
-	// 		</Box>
-	// 	)
-	// }
 
 	if (!isAuthenticated) {
 		return null

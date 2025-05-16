@@ -1,23 +1,26 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { usersApi } from '@/lib/api/user'
-import { useAuthContext } from '@/context/AuthContext'
+import { useAuth } from '@/hooks'
 import { toaster } from '@/components/ui/toaster'
 
 export function useFollowOrUnfollowUser() {
 	const queryClient = useQueryClient()
 	const {
 		authState: { user },
-	} = useAuthContext()
+	} = useAuth()
 
 	const followMutation = useMutation({
 		mutationFn: ({ userId }: { userId: string }) => usersApi.followUser(userId),
-		onSuccess: () => {
-			queryClient.invalidateQueries({
+		onSuccess: async () => {
+			await queryClient.invalidateQueries({
 				queryKey: ['follow-suggestions', user?.sub],
 			})
-			queryClient.invalidateQueries({
+			await queryClient.invalidateQueries({
 				queryKey: ['posts'],
+			})
+			toaster.success({
+				description: 'User followed successfully',
 			})
 		},
 		onError: error => {
@@ -33,9 +36,12 @@ export function useFollowOrUnfollowUser() {
 	const unfollowMutation = useMutation({
 		mutationFn: ({ userId }: { userId: string }) =>
 			usersApi.unfollowUser(userId),
-		onSuccess: () => {
-			queryClient.invalidateQueries({
+		onSuccess: async () => {
+			await queryClient.invalidateQueries({
 				queryKey: ['followers-and-following', user?.sub],
+			})
+			toaster.success({
+				description: 'User unfollowed successfully',
 			})
 		},
 		onError: error => {

@@ -16,7 +16,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 
 import { AvatarComponent } from '@/components/ui/avatar'
 import { usePostsForm } from '@/hooks/use-posts-form'
-import { useAuthContext } from '@/context/AuthContext'
+import { useAuth } from '@/hooks'
 import { LikeDetails, SuggestedUsers } from '@/components/home'
 
 dayjs.extend(relativeTime)
@@ -43,7 +43,7 @@ export const PostsFeed = () => {
 
 	const {
 		authState: { user },
-	} = useAuthContext()
+	} = useAuth()
 
 	return (
 		<Box>

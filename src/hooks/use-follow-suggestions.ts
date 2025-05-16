@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { usersApi } from '@/lib/api/user'
-import { useAuthContext } from '@/context/AuthContext'
+import { useAuth } from '@/hooks'
 import { User } from '@/types'
 
 export function useFollowSuggestions() {
 	const {
 		authState: { user },
-	} = useAuthContext()
+	} = useAuth()
 
 	const { data, isLoading, error } = useQuery<User[]>({
 		queryKey: ['follow-suggestions', user?.sub],

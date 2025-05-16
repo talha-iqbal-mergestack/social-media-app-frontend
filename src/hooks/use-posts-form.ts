@@ -6,13 +6,13 @@ import { postsApi } from '@/lib/api/posts'
 import { PostFormValues } from '@/types'
 import { postSchema } from '@/core/validation-schemas'
 import { toaster } from '@/components/ui/toaster'
-import { useAuthContext } from '@/context/AuthContext'
+import { useAuth } from '@/hooks'
 
 export function usePostsForm() {
 	const queryClient = useQueryClient()
 	const {
 		authState: { user },
-	} = useAuthContext()
+	} = useAuth()
 
 	const form = useForm<PostFormValues>({
 		resolver: zodResolver(postSchema),

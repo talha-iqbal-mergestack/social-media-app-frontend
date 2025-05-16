@@ -8,7 +8,7 @@ import { authApi } from '@/lib/api/auth'
 import { SigninFormValues } from '@/types'
 import { signinSchema } from '@/core/validation-schemas'
 import { toaster } from '@/components/ui/toaster'
-import { useAuthContext } from '@/context/AuthContext'
+import { useAuth } from '@/hooks'
 
 export function useSigninForm() {
 	const router = useRouter()
@@ -16,7 +16,7 @@ export function useSigninForm() {
 		signin,
 		authState: { user },
 		isLoading,
-	} = useAuthContext()
+	} = useAuth()
 
 	const defaultValues = {
 		email: user?.email || '',
@@ -32,6 +32,9 @@ export function useSigninForm() {
 		mutationFn: authApi.signin,
 		onSuccess: data => {
 			signin(data)
+			toaster.success({
+				description: 'Signin successful',
+			})
 			router.push('/home/feed')
 		},
 		onError: error => {

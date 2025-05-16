@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { usersApi } from '@/lib/api/user'
-import { useAuthContext } from '@/context/AuthContext'
+import { useAuth } from '@/hooks'
 import { FollowersAndFollowingData } from '@/types'
 
 export function useFollowersAndFollowingList() {
 	const {
 		authState: { user },
-	} = useAuthContext()
+	} = useAuth()
 
 	const { data, isLoading, error } = useQuery<FollowersAndFollowingData>({
 		queryKey: ['followers-and-following', user?.sub],

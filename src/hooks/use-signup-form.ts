@@ -7,11 +7,11 @@ import { authApi } from '@/lib/api/auth'
 import { SignupFormValues } from '@/types'
 import { signupSchema } from '@/core/validation-schemas'
 import { toaster } from '@/components/ui/toaster'
-import { useAuthContext } from '@/context/AuthContext'
+import { useAuth } from '@/hooks'
 
 export function useSignupForm() {
 	const router = useRouter()
-	const { signup } = useAuthContext()
+	const { signup } = useAuth()
 
 	const form = useForm<SignupFormValues>({
 		resolver: zodResolver(signupSchema),

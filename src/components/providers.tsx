@@ -9,8 +9,6 @@ import {
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState } from 'react'
 
-import { AuthProvider } from '@/context/AuthContext'
-
 const config = defineConfig({
 	theme: {
 		tokens: {
@@ -32,9 +30,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 	const [queryClient] = useState(() => new QueryClient())
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ChakraProvider value={system}>
-				<AuthProvider>{children}</AuthProvider>
-			</ChakraProvider>
+			<ChakraProvider value={system}>{children}</ChakraProvider>
 		</QueryClientProvider>
 	)
 }
