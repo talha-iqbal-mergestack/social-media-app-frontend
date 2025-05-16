@@ -8,8 +8,7 @@ export function useFollowSuggestions() {
 	const {
 		authState: { user },
 	} = useAuth()
-
-	const { data, isLoading, error } = useQuery<User[]>({
+	const { data, isPending, error } = useQuery<User[]>({
 		queryKey: ['follow-suggestions', user?.sub],
 		queryFn: () => usersApi.getFollowSuggestions(user!.sub!),
 		enabled: !!user,
@@ -17,7 +16,7 @@ export function useFollowSuggestions() {
 
 	return {
 		suggestedUsers: data || [],
-		isLoading,
+		isLoading: isPending,
 		error,
 	}
 }
