@@ -9,8 +9,16 @@ import {
 	Text,
 	IconButton,
 	Field,
+	ButtonGroup,
+	Popover,
 } from '@chakra-ui/react'
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import {
+	AiOutlineHeart,
+	AiFillHeart,
+	AiOutlineBold,
+	AiOutlineItalic,
+	AiOutlineDelete,
+} from 'react-icons/ai'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
@@ -18,6 +26,7 @@ import { AvatarComponent } from '@/components/ui/avatar'
 import { usePostsForm } from '@/hooks/use-posts-form'
 import { useAuth } from '@/hooks'
 import { LikeDetails, SuggestedUsers } from '@/components/home'
+import { BsEmojiSmile } from 'react-icons/bs'
 
 dayjs.extend(relativeTime)
 
@@ -62,18 +71,55 @@ export const PostsFeed = () => {
 						>
 							<form onSubmit={handleSubmit(onSubmit)}>
 								<Field.Root invalid={!!errors.text} mb={4}>
-									<Input
-										{...register('text')}
-										placeholder="What's on your mind?"
-										size="lg"
-										focusRingColor="primary"
-										autoComplete="off"
-										_focus={{ transform: 'translateY(-2px)' }}
-										transition="all 0.2s"
-									/>
+									<VStack align="stretch" gap={2} w="100%">
+										<Input
+											{...register('text')}
+											placeholder="What's on your mind?"
+											size="lg"
+											focusRingColor="primary"
+											autoComplete="off"
+											_focus={{ transform: 'translateY(-2px)' }}
+											transition="all 0.2s"
+										/>
+									</VStack>
 									<Field.ErrorText>{errors.text?.message}</Field.ErrorText>
 								</Field.Root>
-								<Box textAlign="right">
+								<HStack display="flex" justifyContent="space-between">
+									<HStack gap={2}>
+										<ButtonGroup size="sm" variant="ghost">
+											<IconButton
+												aria-label="Bold"
+												_hover={{ color: 'primary' }}
+											>
+												<AiOutlineBold />
+											</IconButton>
+											<IconButton
+												aria-label="Italic"
+												_hover={{ color: 'primary' }}
+											>
+												<AiOutlineItalic />
+											</IconButton>
+										</ButtonGroup>
+										<Popover.Root>
+											<Popover.Trigger>
+												<IconButton
+													aria-label="Add emoji"
+													size="sm"
+													variant="ghost"
+													_hover={{ color: 'primary' }}
+												>
+													<BsEmojiSmile />
+												</IconButton>
+											</Popover.Trigger>
+											<Popover.Content>
+												<Popover.Body>
+													<Box p={2}>
+														{/* Add emoji picker component here */}
+													</Box>
+												</Popover.Body>
+											</Popover.Content>
+										</Popover.Root>
+									</HStack>
 									<Button
 										type="submit"
 										loading={createPostMutation.isPending}
@@ -83,7 +129,7 @@ export const PostsFeed = () => {
 									>
 										Post
 									</Button>
-								</Box>
+								</HStack>
 							</form>
 						</Box>
 						<VStack gap={4} align="stretch">
@@ -115,17 +161,27 @@ export const PostsFeed = () => {
 										transition="all 0.2s"
 										_hover={{ shadow: 'lg', transform: 'translateY(-2px)' }}
 									>
-										<HStack gap={3} mb={4}>
-											<AvatarComponent
-												name={post._poster.name}
-												// avatar={post._poster.avatar}
-											/>
-											<Box>
-												<Text fontWeight="bold">{post._poster.name}</Text>
-												<Text fontSize="sm" color="gray.500">
-													{dayjs(post.createdAt).fromNow()}
-												</Text>
-											</Box>
+										<HStack display="flex" justifyContent="space-between">
+											<HStack gap={3} mb={4}>
+												<AvatarComponent
+													name={post._poster.name}
+													// avatar={post._poster.avatar}
+												/>
+												<Box>
+													<Text fontWeight="bold">{post._poster.name}</Text>
+													<Text fontSize="sm" color="gray.500">
+														{dayjs(post.createdAt).fromNow()}
+													</Text>
+												</Box>
+											</HStack>
+											<IconButton
+												borderColor="gray"
+												backgroundClip="text"
+												color="primary"
+												_hover={{ bg: 'primary', color: 'white' }}
+											>
+												<AiOutlineDelete />
+											</IconButton>
 										</HStack>
 										<Text mb={4}>{post.text}</Text>
 										<HStack gap={2}>
