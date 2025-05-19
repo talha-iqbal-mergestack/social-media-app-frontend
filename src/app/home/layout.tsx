@@ -35,7 +35,7 @@ export default function HomeLayout({
 			<Box
 				position="sticky"
 				top="0"
-				zIndex="sticky"
+				zIndex="max"
 				display="flex"
 				justifyContent="space-between"
 				alignItems="center"

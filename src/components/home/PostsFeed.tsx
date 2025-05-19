@@ -7,42 +7,25 @@ import {
 	VStack,
 	HStack,
 	Text,
-	IconButton,
 	Field,
-	ButtonGroup,
-	Popover,
 } from '@chakra-ui/react'
-import {
-	AiOutlineHeart,
-	AiFillHeart,
-	AiOutlineBold,
-	AiOutlineItalic,
-	AiOutlineDelete,
-} from 'react-icons/ai'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
-import { AvatarComponent } from '@/components/ui/avatar'
+import { useState } from 'react'
+
 import { usePostsForm } from '@/hooks/use-posts-form'
-import { useAuth } from '@/hooks'
-import { LikeDetails, SuggestedUsers } from '@/components/home'
-import { BsEmojiSmile } from 'react-icons/bs'
+import {
+	SuggestedUsers,
+	TextStyleControls,
+	EmojiPicker,
+	PostCard,
+} from '@/components/home'
 
 dayjs.extend(relativeTime)
 
 export const PostsFeed = () => {
-	const {
-		form,
-		posts,
-		onSubmit,
-		onLike,
-		onUnlike,
-		createPostMutation,
-		unlikePostMutation,
-		likePostMutation,
-		pendinglikePostMutationVariables,
-		pendingUnlikePostMutationVariables,
-	} = usePostsForm()
+	const { form, posts, onSubmit, createPostMutation } = usePostsForm()
 
 	const {
 		register,
@@ -50,9 +33,10 @@ export const PostsFeed = () => {
 		handleSubmit,
 	} = form
 
-	const {
-		authState: { user },
-	} = useAuth()
+	const [textStyle, setTextStyle] = useState({
+		fontWeight: '',
+		fontStyle: '',
+	})
 
 	return (
 		<Box>
@@ -80,45 +64,18 @@ export const PostsFeed = () => {
 											autoComplete="off"
 											_focus={{ transform: 'translateY(-2px)' }}
 											transition="all 0.2s"
+											{...textStyle}
 										/>
 									</VStack>
 									<Field.ErrorText>{errors.text?.message}</Field.ErrorText>
 								</Field.Root>
 								<HStack display="flex" justifyContent="space-between">
 									<HStack gap={2}>
-										<ButtonGroup size="sm" variant="ghost">
-											<IconButton
-												aria-label="Bold"
-												_hover={{ color: 'primary' }}
-											>
-												<AiOutlineBold />
-											</IconButton>
-											<IconButton
-												aria-label="Italic"
-												_hover={{ color: 'primary' }}
-											>
-												<AiOutlineItalic />
-											</IconButton>
-										</ButtonGroup>
-										<Popover.Root>
-											<Popover.Trigger>
-												<IconButton
-													aria-label="Add emoji"
-													size="sm"
-													variant="ghost"
-													_hover={{ color: 'primary' }}
-												>
-													<BsEmojiSmile />
-												</IconButton>
-											</Popover.Trigger>
-											<Popover.Content>
-												<Popover.Body>
-													<Box p={2}>
-														{/* Add emoji picker component here */}
-													</Box>
-												</Popover.Body>
-											</Popover.Content>
-										</Popover.Root>
+										<TextStyleControls
+											textStyle={textStyle}
+											setTextStyle={setTextStyle}
+										/>
+										<EmojiPicker />
 									</HStack>
 									<Button
 										type="submit"
@@ -151,72 +108,7 @@ export const PostsFeed = () => {
 									</Text>
 								</Box>
 							) : (
-								posts.map(post => (
-									<Box
-										key={post.id}
-										bg="white"
-										p={6}
-										borderRadius="lg"
-										shadow="md"
-										transition="all 0.2s"
-										_hover={{ shadow: 'lg', transform: 'translateY(-2px)' }}
-									>
-										<HStack display="flex" justifyContent="space-between">
-											<HStack gap={3} mb={4}>
-												<AvatarComponent
-													name={post._poster.name}
-													// avatar={post._poster.avatar}
-												/>
-												<Box>
-													<Text fontWeight="bold">{post._poster.name}</Text>
-													<Text fontSize="sm" color="gray.500">
-														{dayjs(post.createdAt).fromNow()}
-													</Text>
-												</Box>
-											</HStack>
-											<IconButton
-												borderColor="gray"
-												backgroundClip="text"
-												color="primary"
-												_hover={{ bg: 'primary', color: 'white' }}
-											>
-												<AiOutlineDelete />
-											</IconButton>
-										</HStack>
-										<Text mb={4}>{post.text}</Text>
-										<HStack gap={2}>
-											<IconButton
-												aria-label="Like post"
-												variant="surface"
-												size="sm"
-												onClick={() =>
-													post.likes.filter(like => like.id === user!.sub)
-														.length > 0
-														? onUnlike(post.id)
-														: onLike(post.id)
-												}
-												loading={
-													(pendinglikePostMutationVariables?.postId ===
-														post.id &&
-														likePostMutation.isPending) ||
-													(pendingUnlikePostMutationVariables?.postId ===
-														post.id &&
-														unlikePostMutation.isPending)
-												}
-											>
-												{post.likes.filter(like => like.id === user!.sub)
-													.length > 0 ? (
-													<AiFillHeart />
-												) : (
-													<AiOutlineHeart />
-												)}
-											</IconButton>
-											{post.likes.length > 0 && (
-												<LikeDetails likes={post.likes} />
-											)}
-										</HStack>
-									</Box>
-								))
+								posts.map(post => <PostCard key={post.id} post={post} />)
 							)}
 						</VStack>
 					</Box>
