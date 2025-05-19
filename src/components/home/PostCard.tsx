@@ -1,3 +1,5 @@
+'use client'
+
 import { Box, HStack, IconButton, Text } from '@chakra-ui/react'
 import { AiFillHeart, AiOutlineDelete, AiOutlineHeart } from 'react-icons/ai'
 import relativeTime from 'dayjs/plugin/relativeTime'
