@@ -1,0 +1,6 @@
+export * from '@/components/auth/SignInForm'
+export * from '@/components/auth/SignUpForm'
+export * from '@/components/auth/OTPVerification'
+export * from '@/components/auth/ResetPasswordForm'
+export * from '@/components/auth/SetNewPasswordForm'
+export * from '@/components/auth/ResendOtp'
