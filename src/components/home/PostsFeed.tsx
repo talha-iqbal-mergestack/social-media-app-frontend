@@ -59,6 +59,10 @@ export const PostsFeed = () => {
 										<Input
 											{...register('text')}
 											placeholder="What's on your mind?"
+											_placeholder={{
+												fontStyle: 'normal',
+												fontWeight: 'normal',
+											}}
 											size="lg"
 											focusRingColor="primary"
 											autoComplete="off"
